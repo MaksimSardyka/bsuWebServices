@@ -1,0 +1,70 @@
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xmlns:tns="http://sardyko.web.bsu.by/models/book"
+	targetNamespace="http://sardyko.web.bsu.by/models/book"
+	elementFormDefault="qualified">
+
+	<xs:element name="getBookByIdRequest">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="id" type="xs:int" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="getBookListByAuthorRequest">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="first_name" type="xs:string" />
+				<xs:element name="second_name" type="xs:string" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="getBookListByPublisherRequest">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="publisher" type="xs:string" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="getBookListByYearRequest">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="year" type="xs:gYear" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="getBookResponse">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="book" type="tns:book" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="getBookListResponse">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="bookList" type="tns:bookList" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:complexType name="book">
+		<xs:sequence>
+			<xs:element name="id" type="xs:long" />
+			<xs:element name="author_firstname" type="xs:string" />
+			<xs:element name="author_lastname" type="xs:string" />
+			<xs:element name="publish_date" type="xs:date" />
+			<xs:element name="publisher" type="xs:string" />
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="bookList">
+		<xs:sequence minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="book" type="tns:book" />
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

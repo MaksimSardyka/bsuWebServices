@@ -1,0 +1,78 @@
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xmlns:tns="http://sardyko.web.bsu.by/models/hour"
+	targetNamespace="http://sardyko.web.bsu.by/models/hour"
+	elementFormDefault="qualified">
+
+	<!-- REQUESTS: -->
+	<xs:element name="getMinutesUntilCloseRequest" />
+
+	<xs:element name="isOpenAtTheMomentRequest" />
+
+	<xs:element name="getOpenHourForSpecificDayRequest">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="dayOfWeek" type="tns:dayOfWeek" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="getOpenHoursRequest" />
+
+	<!-- RESPONSES: -->
+	<!-- Number of minutes until close: -->
+	<xs:element name="getMinutesUntilCloseResponse">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="minuteUntilClose" type="xs:int" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<!-- Is library opened at the moment: -->
+	<xs:element name="isOpenResponse">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="open" type="xs:boolean" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<!-- Schedule for a day: -->
+	<xs:element name="getOpenHoursForSpecificDayResponse">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="hour" type="tns:hour" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<!-- Schedule for a week: -->
+	<xs:element name="getOpenHoursResponse">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="hourList" type="tns:hourList" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<!-- TYPES: -->
+	<xs:complexType name="hour">
+		<xs:sequence>
+			<xs:element name="opens" type="xs:time" />
+			<xs:element name="closes" type="xs:time" />
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="hourList">
+		<xs:sequence minOccurs="0" maxOccurs="7">
+			<xs:element name="hour" type="tns:hour" />
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:simpleType name="dayOfWeek">
+		<xs:restriction base="xs:int">
+			<xs:minInclusive value="1" />
+			<xs:maxInclusive value="7" />
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>
